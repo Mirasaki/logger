@@ -7,7 +7,7 @@ const tagList = {
   SUCCESS: chalk.green('[SUCCESS]'),
   INFO: chalk.blue('[INFO]'),
   DEBUG: chalk.magenta('[DEBUG]'),
-  DATABASE: chalk.yellow('[DATABASE]'),
+  DATA: chalk.yellow('[DATA]'),
   COMMAND: chalk.white('[CMD]')
 };
 
@@ -21,7 +21,7 @@ module.exports = {
   success: (str) => console.log(`${timestamp()} ${getTag('SUCCESS')} ${str}`),
   info: (str) => console.info(`${timestamp()} ${getTag('INFO')} ${str}`),
   debug: (str) => console.log(`${timestamp()} ${getTag('DEBUG')} ${str}`),
-  database: (str) => console.log(`${timestamp()} ${getTag('DATABASE')} ${str}`),
+  data: (str) => console.log(`${timestamp()} ${getTag('DATA')} ${str}`),
 
   startLog: (identifier) => console.log(`${timestamp()} ${getTag('DEBUG')} ${chalk.greenBright('[START]')} ${identifier}`),
   endLog: (identifier) => console.log(`${timestamp()} ${getTag('DEBUG')} ${chalk.redBright('[ END ]')} ${identifier}`),
@@ -32,8 +32,8 @@ module.exports = {
       process.hrtime(startHr)[0] * 1000
       + startHr[1] / 1000000
     ).toFixed(2);
-    return `${chalk.greenBright(
+    return `${chalk.yellowBright(
       (executionTimeInMS / 1000).toFixed(2))
-    } seconds (${chalk.greenBright(executionTimeInMS)} ms)`;
+    } seconds (${chalk.yellowBright(executionTimeInMS)} ms)`;
   }
 };
