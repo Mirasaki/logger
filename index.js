@@ -27,13 +27,49 @@ module.exports = {
   endLog: (identifier) => console.log(`${timestamp()} ${getTag('DEBUG')} ${chalk.redBright('[ END ]')} ${identifier}`),
 
   timestamp,
-  getExecutionTime: (startHr) => {
-    const executionTimeInMS = (
-      process.hrtime(startHr)[0] * 1000
-      + startHr[1] / 1000000
+  getExecutionTime: (hrtime) => {
+    const timeSinceHrMs = (
+      process.hrtime(hrtime)[0] * 1000
+      + hrtime[1] / 1000000
     ).toFixed(2);
     return `${chalk.yellowBright(
-      (executionTimeInMS / 1000).toFixed(2))
-    } seconds (${chalk.yellowBright(executionTimeInMS)} ms)`;
+      (timeSinceHrMs / 1000).toFixed(2))
+    } seconds (${chalk.yellowBright(timeSinceHrMs)} ms)`;
+  },
+
+  printErr: (err) => {
+    if (!(err instanceof Error)) {
+      console.error(err)
+      return;
+    }
+
+    console.error(
+      !err.stack
+        ? chalk.red(err)
+        : err.stack
+          .split('\n')
+          .map((msg, index) => {
+            if (index === 0) {
+              return chalk.red(msg);
+            }
+
+            const isFailedFunctionCall = index === 1;
+            const traceStartIndex = msg.indexOf('(');
+            const traceEndIndex = msg.lastIndexOf(')');
+            const hasTrace = traceStartIndex !== -1;
+            const functionCall = msg.slice(
+              msg.indexOf('at') + 3,
+              hasTrace ? traceStartIndex - 1 : msg.length
+            );
+            const trace = msg.slice(traceStartIndex, traceEndIndex + 1);
+
+            return `    ${chalk.grey('at')} ${
+              isFailedFunctionCall
+                ? `${chalk.redBright(functionCall)} ${chalk.red.underline(trace)}`
+                : `${chalk.greenBright(functionCall)} ${chalk.grey(trace)}`
+            }`;
+          })
+          .join('\n')
+    )
   }
 };
