@@ -1,6 +1,6 @@
 {
   "name": "@mirasaki/logger",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "My first NPM package with logging functions I use in most of my personal projects.",
   "main": "index.js",
   "scripts": {

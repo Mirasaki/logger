@@ -31,6 +31,16 @@ logger.endLog('Application Command Data');
 ### Outputs:
 ![](https://i.postimg.cc/BZLdKP0N/Windows-Terminal-5-KQj-Dfpp-KR.png "Preview unavailable")
 
+## Example error logging
+```js
+// catch (err) {} or .catch((err) => {})
+logger.syserr(`An error has occurred while executing the /zz command`);
+logger.printErr(err);
+```
+
+## Outputs:
+![](https://i.postimg.cc/L5X4mf77/Code-8-Qs-Tu-WF23-Z.png "Preview unavailable")
+
 ## Functions
 - `syslog`
 - `syserr`
@@ -39,5 +49,6 @@ logger.endLog('Application Command Data');
 - `debug`
 - `database`
 - `startLog` & `endLog`
-- `timestamp` -> returns the formatted timestamp for consistency
-- `getExecutionTime` -> pass `process.hrtime()` to get precise, formatted `timeSince` output
+- `timestamp`: Returns the formatted timestamp for consistency
+- `getExecutionTime`: Pass `process.hrtime()` to get precise, formatted `timeSince` output
+- `printErr`: print an error object to the console in color
